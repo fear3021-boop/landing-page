@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escobar — The Women Lounge</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --plum:     #1C0A1E;
+    --plum-mid: #2E1333;
+    --mauve:    #7A4F63;
+    --blush:    #F2B8C6;
+    --gold:     #D4AF7A;
+    --ivory:    #FDF6F0;
+    --text-dim: #C4A8B4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--plum);
+    color: var(--ivory);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: transparent;
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(28, 10, 30, 0.92); backdrop-filter: blur(12px); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--blush); font-style: italic; }
+
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.55rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--plum); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 2rem 5rem;
+  }
+
+  /* Petal canvas */
+  #petal-canvas {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial glow */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(122, 79, 99, 0.18) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+    position: relative; z-index: 2;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.2rem, 8vw, 6.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    position: relative; z-index: 2;
+    max-width: 900px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .hero-sub {
+    margin-top: 1.8rem;
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 440px;
+    line-height: 1.75;
+    position: relative; z-index: 2;
+  }
+
+  .hero-actions {
+    margin-top: 2.8rem;
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    justify-content: center;
+    position: relative; z-index: 2;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--plum);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--blush); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ivory);
+    border: 1px solid rgba(253, 246, 240, 0.3);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--blush); color: var(--blush); }
+
+  .hero-rating {
+    margin-top: 3.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    position: relative; z-index: 2;
+  }
+  .stars { color: var(--gold); font-size: 0.95rem; letter-spacing: 0.08em; }
+  .rating-text {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+  .rating-text strong { color: var(--ivory); }
+
+  .scroll-line {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+    opacity: 0.45;
+  }
+  .scroll-line span {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .scroll-line-bar {
+    width: 1px; height: 44px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.15); }
+  }
+
+  /* ── STRIP ── */
+  .strip {
+    background: var(--gold);
+    padding: 0.9rem 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .strip-inner {
+    display: inline-flex;
+    animation: ticker 28s linear infinite;
+  }
+  .strip-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    padding: 0 3rem;
+  }
+  .strip-dot {
+    color: var(--mauve);
+    margin: 0 1rem;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--ivory);
+    color: var(--plum);
+    padding: 7rem 3rem;
+  }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    color: var(--plum);
+    max-width: 520px;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--mauve); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(28, 10, 30, 0.12);
+    border-left: 1px solid rgba(28, 10, 30, 0.12);
+  }
+
+  .service-card {
+    border-right: 1px solid rgba(28, 10, 30, 0.12);
+    border-bottom: 1px solid rgba(28, 10, 30, 0.12);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: rgba(122, 79, 99, 0.06); }
+
+  .service-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--plum);
+    margin-bottom: 0.6rem;
+  }
+  .service-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--mauve);
+  }
+
+  /* ── ABOUT SPLIT ── */
+  .about {
+    background: var(--plum-mid);
+    padding: 7rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-badge {
+    display: inline-block;
+    background: rgba(212, 175, 122, 0.12);
+    border: 1px solid rgba(212, 175, 122, 0.3);
+    color: var(--gold);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .about .section-title { color: var(--ivory); max-width: 100%; }
+  .about .section-title em { color: var(--blush); }
+
+  .about-body {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--text-dim);
+    margin-top: 1.5rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+  .about-img-frame {
+    background: var(--plum);
+    border: 1px solid rgba(212, 175, 122, 0.2);
+    aspect-ratio: 4/5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-img-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(242, 184, 198, 0.07) 0%, transparent 70%);
+  }
+  .about-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: rgba(212, 175, 122, 0.15);
+    font-style: italic;
+    line-height: 1;
+    user-select: none;
+  }
+  .about-tagline-visual {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(212, 175, 122, 0.5);
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 0 2rem;
+  }
+  .about-corner {
+    position: absolute;
+    width: 40px; height: 40px;
+    border-color: rgba(212, 175, 122, 0.4);
+    border-style: solid;
+  }
+  .about-corner.tl { top: 1rem; left: 1rem; border-width: 1px 0 0 1px; }
+  .about-corner.tr { top: 1rem; right: 1rem; border-width: 1px 1px 0 0; }
+  .about-corner.bl { bottom: 1rem; left: 1rem; border-width: 0 0 1px 1px; }
+  .about-corner.br { bottom: 1rem; right: 1rem; border-width: 0 1px 1px 0; }
+
+  /* ── TREATMENTS ── */
+  .treatments {
+    background: var(--ivory);
+    padding: 7rem 3rem;
+    text-align: center;
+  }
+  .treatments .section-title { margin: 0 auto 1rem; text-align: left; }
+  .treat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1140px;
+    margin: 0 auto 3.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .treat-header .section-label { text-align: left; }
+  .treat-header .section-title { margin-bottom: 0; }
+
+  .treat-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .treat-item {
+    background: var(--plum);
+    color: var(--ivory);
+    padding: 2.5rem 2rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .treat-item:hover { transform: translateY(-4px); }
+  .treat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), var(--blush));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+  .treat-item:hover::after { transform: scaleX(1); }
+
+  .treat-item.featured {
+    background: var(--mauve);
+    grid-row: span 2;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .treat-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .treat-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .treat-desc {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .treat-item.featured .treat-desc { color: rgba(253,246,240,0.7); }
+
+  /* ── REVIEWS ── */
+  .reviews {
+    background: var(--plum);
+    padding: 7rem 3rem;
+    text-align: center;
+  }
+  .reviews .section-label { color: var(--gold); }
+  .reviews .section-title { color: var(--ivory); margin: 0 auto 3.5rem; }
+  .reviews .section-title em { color: var(--blush); }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: var(--plum-mid);
+    border: 1px solid rgba(212, 175, 122, 0.12);
+    padding: 2rem 1.8rem;
+    text-align: left;
+    transition: border-color 0.3s;
+  }
+  .review-card:hover { border-color: rgba(212, 175, 122, 0.35); }
+
+  .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 1rem; }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--ivory);
+    margin-bottom: 1.4rem;
+  }
+  .review-author { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.08em; }
+  .review-author strong { color: var(--blush); font-weight: 400; }
+  .review-service {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(212, 175, 122, 0.1);
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* ── BOOKING ── */
+  .booking {
+    background: var(--mauve);
+    padding: 6rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .booking::before {
+    content: 'E';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30rem;
+    font-style: italic;
+    color: rgba(28, 10, 30, 0.12);
+    right: -4rem; top: 50%; transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .booking .section-label { color: rgba(253,246,240,0.6); }
+  .booking h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: var(--ivory);
+    margin: 0.5rem auto 1.5rem;
+    max-width: 600px;
+    line-height: 1.1;
+  }
+  .booking h2 em { font-style: italic; color: var(--gold); }
+  .booking p {
+    color: rgba(253,246,240,0.7);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto 2.5rem;
+  }
+  .booking-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--plum);
+    color: var(--gold);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { background: var(--gold); color: var(--plum); }
+  .btn-outline-light {
+    background: transparent;
+    color: var(--ivory);
+    border: 1px solid rgba(253,246,240,0.4);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-outline-light:hover { border-color: var(--ivory); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #120618;
+    padding: 4rem 3rem 2.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    border-top: 1px solid rgba(212, 175, 122, 0.1);
+  }
+  .footer-brand .nav-logo { display: block; margin-bottom: 1rem; }
+  .footer-tagline {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-contact {
+    margin-top: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .footer-contact a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.25s;
+  }
+  .footer-contact a:hover { color: var(--gold); }
+
+  .footer-col h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .footer-col ul li a:hover { color: var(--ivory); }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.7rem; color: rgba(196, 168, 180, 0.4); letter-spacing: 0.06em; }
+  .women-owned {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--blush);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .treat-list { grid-template-columns: 1fr 1fr; }
+    .treat-item.featured { grid-row: span 1; }
+    .review-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .services, .treatments, .reviews, .booking { padding: 5rem 1.5rem; }
+    .treat-list { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about { padding: 5rem 1.5rem; }
+  }
+
+  /* ── FADE-IN ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Escobar <span>The Women Lounge</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#treatments">Treatments</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="tel:+923002448181" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="petal-canvas"></canvas>
+
+  <p class="hero-eyebrow">Bahria Town Phase 7 · Rawalpindi</p>
+  <h1>Where Beauty<br>Finds Its <em>Finest</em><br>Expression</h1>
+  <p class="hero-sub">Premium hair, skin & wellness services for the modern woman — crafted with care, delivered with expertise.</p>
+
+  <div class="hero-actions">
+    <a href="tel:+923002448181" class="btn-primary">Book Appointment</a>
+    <a href="#services" class="btn-ghost">Explore Services</a>
+  </div>
+
+  <div class="hero-rating">
+    <span class="stars">★ ★ ★ ★ ★</span>
+    <p class="rating-text"><strong>4.9</strong> · 58 Reviews on Google Maps</p>
+  </div>
+
+  <div class="scroll-line">
+    <div class="scroll-line-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-inner" id="ticker">
+    <span class="strip-item">Hair Colour</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Balayage & Highlights</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Keratin Treatment</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Botox Hair</span><span class="strip-dot">✦</span>
+    <span class="strip-item">HydraFacial</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Blow Dry</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Hair Spa</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Protein Treatment</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Hair Colour</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Balayage & Highlights</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Keratin Treatment</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Botox Hair</span><span class="strip-dot">✦</span>
+    <span class="strip-item">HydraFacial</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Blow Dry</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Hair Spa</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Protein Treatment</span><span class="strip-dot">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-label fade-up">Our Expertise</p>
+  <h2 class="section-title fade-up">Everything your hair<br><em>deserves</em></h2>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <span class="service-icon">✂️</span>
+      <p class="service-name">Haircut & Styling</p>
+      <p class="service-desc">Precision cuts and blow-dry finishes tailored to your face shape and lifestyle — from classic to contemporary.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🎨</span>
+      <p class="service-name">Colour & Balayage</p>
+      <p class="service-desc">Full colour, highlights, balayage, and ombre — rich, dimensional results using professional colour systems.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">✨</span>
+      <p class="service-name">Keratin & Protein</p>
+      <p class="service-desc">Frizz-free smoothing treatments that restore shine, strength, and manageability for months at a time.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">💆</span>
+      <p class="service-name">Hair Spa & Repair</p>
+      <p class="service-desc">Intensive nourishment therapies to combat hair fall, dryness, and damage — visibly healthier from day one.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">💎</span>
+      <p class="service-name">Botox Hair</p>
+      <p class="service-desc">A deep-conditioning treatment that fills gaps in the hair fibre for gloss, softness, and reduced breakage.</p>
+    </div>
+    <div class="service-card fade-up">
+      <span class="service-icon">🌿</span>
+      <p class="service-name">Skin & Facial</p>
+      <p class="service-desc">HydraFacial, professional skin care, and targeted skin treatments for radiant, healthy-looking skin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div style="background: var(--plum-mid); padding: 7rem 0;" id="about">
+<div class="about">
+  <div class="about-text">
+    <div class="about-badge">Women-Owned Salon</div>
+    <h2 class="section-title fade-up">A lounge built for<br><em>you</em> — only</h2>
+    <p class="about-body fade-up">
+      At Escobar The Women Lounge, every appointment is a private experience. Our skilled stylists combine professional technique with premium products to deliver results that go beyond expectations. Whether you're maintaining your look or seeking a full transformation, we're dedicated to your confidence — from the first consultation to the final reveal.
+    </p>
+    <p class="about-body fade-up" style="margin-top: 0.8rem;">
+      Located in the heart of Bahria Town Phase 7, we've become Rawalpindi's most trusted destination for women who refuse to settle.
+    </p>
+    <div class="about-stats fade-up">
+      <div>
+        <p class="stat-num">4.9</p>
+        <p class="stat-label">Star Rating</p>
+      </div>
+      <div>
+        <p class="stat-num">58+</p>
+        <p class="stat-label">Happy Clients</p>
+      </div>
+      <div>
+        <p class="stat-num">10+</p>
+        <p class="stat-label">Signature Services</p>
+      </div>
+      <div>
+        <p class="stat-num">100%</p>
+        <p class="stat-label">Women-Focused</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual fade-up">
+    <div class="about-img-frame">
+      <div class="about-corner tl"></div>
+      <div class="about-corner tr"></div>
+      <div class="about-corner bl"></div>
+      <div class="about-corner br"></div>
+      <div class="about-monogram">E</div>
+      <p class="about-tagline-visual">"Where every woman leaves more beautiful than she arrived."</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TREATMENTS -->
+<section class="treatments" id="treatments">
+  <div class="treat-header">
+    <div>
+      <p class="section-label">Signature Treatments</p>
+      <h2 class="section-title">Our most loved<br><em>transformations</em></h2>
+    </div>
+    <a href="tel:+923002448181" class="btn-primary" style="margin-bottom: 0.4rem;">Enquire Now</a>
+  </div>
+  <div class="treat-list">
+    <div class="treat-item featured fade-up">
+      <div>
+        <p class="treat-tag">Most Popular</p>
+        <p class="treat-name">Balayage & Highlights</p>
+        <p class="treat-desc" style="color: rgba(253,246,240,0.75);">Hand-painted colour that grows out beautifully. Our colourists create sun-kissed, dimensional results that look natural, lived-in, and effortlessly stylish. Customised entirely to your complexion.</p>
+      </div>
+      <div style="margin-top: 2rem;">
+        <p style="font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--gold); opacity: 0.8;">Results that last months, not weeks.</p>
+      </div>
+    </div>
+    <div class="treat-item fade-up">
+      <p class="treat-tag">Smoothing</p>
+      <p class="treat-name">Keratin Treatment</p>
+      <p class="treat-desc">Long-lasting frizz control and shine. Ideal for managing thick, coarse, or humidity-prone hair — wake up to smooth hair every day.</p>
+    </div>
+    <div class="treat-item fade-up">
+      <p class="treat-tag">Skin</p>
+      <p class="treat-name">HydraFacial</p>
+      <p class="treat-desc">Advanced skin resurfacing that cleanses, extracts, and hydrates. Instant visible results with zero downtime — a true glow treatment.</p>
+    </div>
+    <div class="treat-item fade-up">
+      <p class="treat-tag">Restoration</p>
+      <p class="treat-name">Botox Hair</p>
+      <p class="treat-desc">A non-chemical deep conditioning treatment that fills damaged hair fibres for extraordinary shine and softness.</p>
+    </div>
+    <div class="treat-item fade-up">
+      <p class="treat-tag">Repair</p>
+      <p class="treat-name">Protein Treatment</p>
+      <p class="treat-desc">Strengthens hair from within, reduces breakage, and tackles hair fall at the root. Visible improvement from the very first session.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <p class="section-label fade-up">Client Reviews</p>
+  <h2 class="section-title fade-up">Loved by every woman<br>who walks through our <em>doors</em></h2>
+  <div class="review-grid">
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I went in for a hair color service and I'm so impressed with the results. The staff was super attentive and made sure I got exactly what I wanted."</p>
+      <p class="review-author"><strong>Sobia Imran</strong> · 4 months ago</p>
+      <span class="review-service">Hair Colour</span>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"My wife got a haircut and hair balayage — we were both much satisfied. Yes, prices are a little high but it doesn't matter when you're getting great service."</p>
+      <p class="review-author"><strong>Malik Shameer</strong> · 6 months ago</p>
+      <span class="review-service">Balayage · Haircut</span>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Got my dye and botox done here and absolutely loved the results! The owner was friendly and really skilled. My hair fall got better. The salon is clean and relaxing."</p>
+      <p class="review-author"><strong>Aeisha Qasym</strong> · 7 months ago</p>
+      <span class="review-service">Botox Hair · Dye</span>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking" id="booking">
+  <p class="section-label">Ready When You Are</p>
+  <h2>Let us take care of<br><em>the rest</em></h2>
+  <p>Call us or find us at Bahria Town Phase 7, Spring North Commercial — open daily until 10 PM.</p>
+  <div class="booking-actions">
+    <a href="tel:+923002448181" class="btn-dark">📞 +92 300 2448181</a>
+    <a href="https://escobarsalonspa.com/Women/Salon" target="_blank" class="btn-outline-light">Visit Website</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo">Escobar <span>The Women Lounge</span></div>
+    <p class="footer-tagline">Bahria Town's most trusted women's beauty lounge — for hair, skin & everything in between.</p>
+    <div class="footer-contact">
+      <a href="tel:+923002448181">+92 300 2448181</a>
+      <a href="https://escobarsalonspa.com" target="_blank">escobarsalonspa.com</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#">Haircut & Styling</a></li>
+      <li><a href="#">Colour & Balayage</a></li>
+      <li><a href="#">Keratin Treatment</a></li>
+      <li><a href="#">Botox Hair</a></li>
+      <li><a href="#">HydraFacial</a></li>
+      <li><a href="#">Hair Spa</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Visit Us</h4>
+    <ul>
+      <li><a href="#">Basement, Bata Shoes</a></li>
+      <li><a href="#">Plaza #69, Spring North</a></li>
+      <li><a href="#">Bahria Town Phase 7</a></li>
+      <li><a href="#">Rawalpindi, 46000</a></li>
+      <li><a href="#">Open until 10 PM</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Escobar The Women Lounge · Rawalpindi, Pakistan</p>
+    <div class="women-owned">
+      <span>♀</span>
+      <span>Women-Owned Business</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── PETAL ANIMATION ──
+const canvas = document.getElementById('petal-canvas');
+const ctx = canvas.getContext('2d');
+let petals = [];
+let W, H;
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function randomPetal() {
+  return {
+    x: Math.random() * W,
+    y: Math.random() * H - H,
+    size: Math.random() * 5 + 2,
+    speedX: (Math.random() - 0.5) * 0.6,
+    speedY: Math.random() * 0.6 + 0.25,
+    opacity: Math.random() * 0.5 + 0.1,
+    rotation: Math.random() * Math.PI * 2,
+    rotSpeed: (Math.random() - 0.5) * 0.025,
+    color: Math.random() > 0.5 ? '#D4AF7A' : '#F2B8C6'
+  };
+}
+
+for (let i = 0; i < 60; i++) {
+  const p = randomPetal();
+  p.y = Math.random() * H; // start spread across
+  petals.push(p);
+}
+
+function drawPetal(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rotation);
+  ctx.globalAlpha = p.opacity;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, p.size * 0.45, p.size, 0, 0, Math.PI * 2);
+  ctx.fillStyle = p.color;
+  ctx.fill();
+  ctx.restore();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  for (let p of petals) {
+    p.x += p.speedX + Math.sin(p.y * 0.01) * 0.3;
+    p.y += p.speedY;
+    p.rotation += p.rotSpeed;
+    if (p.y > H + 20) {
+      Object.assign(p, randomPetal());
+      p.y = -20;
+    }
+    drawPetal(p);
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── SCROLL NAV ──
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── FADE UP ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
